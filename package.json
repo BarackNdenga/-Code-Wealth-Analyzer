@@ -1,0 +1,67 @@
+{
+  "name": "code-wealth-analyzer",
+  "displayName": "Code-Wealth Analyzer",
+  "description": "Real-time cloud cost analyzer: Free (AWS Lambda) | Pro $9.99/mo (Multi-Cloud + SQL Overquery) | Pro+ $19.99/mo (Hints/Wealth Score).",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": ["Other"],
+  "activationEvents": ["onLanguage:typescript", "onLanguage:javascript", "onLanguage:sql"],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "codewealth.refreshCostAnalysis",
+        "title": "Refresh Cost Analysis"
+      },
+      {
+        "command": "codewealth.optimizeQuery",
+        "title": "Optimize Current Query (Pro)"
+      },
+      {
+        "command": "codewealth.upgradePro",
+        "title": "Upgrade to Pro"
+      }
+    ],
+    "configuration": {
+      "title": "Code-Wealth Analyzer",
+      "properties": {
+        "codewealth.licenseKey": {
+          "type": "string",
+          "default": "",
+          "description": "License key: '' (Free) | 'codewealth-pro-key-🧠2024' (Pro $9.99/mo) | '-plus' (Pro+ $19.99/mo)."
+        },
+        "codewealth.cloudProvider": {
+          "type": "string",
+          "default": "aws",
+          "enum": ["aws", "azure", "gcp"],
+          "description": "Default cloud provider."
+        },
+        "codewealth.stripePublishableKey": {
+          "type": "string",
+          "default": "",
+          "description": "Stripe publishable key for Pro upgrades (pk_test/...)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/stripe": "^8.0.416",
+    "@types/vscode": "^1.85.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.57.0",
+    "stripe": "^22.0.2",
+    "typescript": "^5.5.0"
+  }
+}
